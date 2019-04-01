@@ -1,0 +1,52 @@
+<div class="row movie-details">
+  <div class="col-sm-12 card">
+    <h3>{{movieDetails.dvdTitle}}</h3>
+    <ng-template #t let-fill="fill">
+      <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+      </span>
+    </ng-template>
+    <ngb-rating [(rate)]="movieDetails.avgRating" [starTemplate]="t" [readonly]="true"></ngb-rating>
+    ({{movieDetails.numOfVotes}})
+    <hr>
+    <div class="row">
+      <div class="col-sm-6">
+        <p *ngFor="let key of objectKeys(leftHalfKeys)">
+          <span class="bold"> {{leftHalfKeys[key]}} : </span>
+          <span>{{movieDetails[key] ? movieDetails[key]: 'Data unavailable'}}</span>
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <p *ngFor="let key of objectKeys(rightHalfKeys)">
+          <span class="bold"> {{rightHalfKeys[key]}} : </span>
+          <span>{{movieDetails[key] ? movieDetails[key]: 'Data unavailable'}}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row movie-details">
+  <div class="col-sm-12 card">
+    <p class="bold"> Rate Here: </p>
+    <form name="ratingForm" novalidate (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <ng-template #r let-fill="fill">
+          <span class="star" [class.full]="fill === 100">
+            <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+          </span>
+        </ng-template>
+        <ngb-rating [(rate)]="userRating" [starTemplate]="r"></ngb-rating>
+        <div [hidden]="!submitted || (submitted && userRating > 0)"
+             class="alert alert-danger">
+          At least one star is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comment">Any Comment?</label>
+        <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" cols="1"
+        placeholder="Add Comment"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+</div>
