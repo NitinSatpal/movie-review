@@ -26,7 +26,8 @@
   </div>
 </div>
 <div class="row movie-details">
-  <div class="col-sm-12 card">
+  <div class="col-sm-12 card"
+  *ngIf="!userMovieRating || !userMovieRating._id">
     <p class="bold"> Rate Here: </p>
     <form name="ratingForm" novalidate (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -44,9 +45,22 @@
       <div class="form-group">
         <label for="comment">Any Comment?</label>
         <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" cols="1"
-        placeholder="Add Comment"></textarea>
+        placeholder="Add Comment" name="comment" [(ngModel)]="userComment"></textarea>
       </div>
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
+  </div>
+  <div class="col-sm-12 card"
+  *ngIf="userMovieRating && userMovieRating._id">
+    <p>Your Rating: {{ userMovieRating.rating }}</p>
+    <ng-template #ur let-fill="fill">
+      <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+      </span>
+    </ng-template>
+    <ngb-rating [(rate)]="userMovieRating.rating" [starTemplate]="ur" [readonly]="true"></ngb-rating>
+  </div>
+  <div class="col-sm-12 card">
+
   </div>
 </div>

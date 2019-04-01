@@ -2,7 +2,7 @@
     <div class="col-sm-3 card" 
     *ngFor="let movie of movies;let index=index;"
     [ngClass]="{'col-gutter-width': index > 3}"
-    routerLink="/movie/details/{{movie._id}}">
+    (click)="navigateToMovieDetails(movie._id)">
       {{movie.dvdTitle}}
     </div>  
 </div>

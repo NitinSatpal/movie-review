@@ -7,7 +7,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
-
 import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AuthHeaderInterceptor } from './interceptors/header.interceptor';

@@ -8,7 +8,7 @@ module.exports = router;
 
 router.get('/', asyncHandler(getMovies));
 router.get('/:id', asyncHandler(getMovieById));
-router.patch('/rate/:id', asyncHandler(rateMovie));
+router.patch('/:id/rate/', asyncHandler(rateMovie));
 
 async function getMovies(req, res) {
   let movies = await movieCtrl.fetch(req);

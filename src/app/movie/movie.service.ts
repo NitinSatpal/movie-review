@@ -29,7 +29,7 @@ export class MovieService {
 
   rateMovie(id, movie): Observable <any> {
     return Observable.create(observer => {
-      this.http.patch('/api/movie/rate/' + id, movie)
+      this.http.patch('/api/movie/' + id + '/rate/', movie)
         .subscribe((data : any) => {
           observer.next({movieDetails: data});      
           observer.complete();

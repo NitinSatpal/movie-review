@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const Movie = require('../models/movie.model');
 const Rating = require('../models/rating.model');
+const Comment = require('../models/comment.model');
 
 const movieSchema = Joi.object({
   dvdTitle: Joi.string().required()
@@ -19,17 +20,23 @@ async function fetch(req) {
 }
 
 async function fetchMovieDetails(id) {
-  let movie = await Movie.findOne({'_id': id});
-  console.log(movie);
+  let movie = await Movie.findOne({'_id': id});  
   return movie;
 }
 
 async function rateMovie(id, data) {
-  let movie = await Movie.findOne({'_id': id});
-  console.log(data);
+  let movie = await Movie.findOne({'_id': id});  
   movie.numOfVotes = movie.numOfVotes + 1;
   movie.avgRating = (movie.avgRating * (movie.numOfVotes - 1) + data.userRating) / movie.numOfVotes;
   let updatedMovie = await movie.save();
+  let comment = {
+    content: data.userComment,
+    user: data.userId,
+    movie: updatedMovie._id,
+    replyTo: null,
+    depth: 0
+  }
+  let savedComment = await new Comment(comment).save();
   let rating = {
     movie: updatedMovie._id,
     user: data.userId,
