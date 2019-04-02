@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MovieService } from '../movie/movie.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +15,12 @@ export class HomeComponent implements OnInit {
   movies: object[] = [];
   constructor(private http : HttpClient,
     private router: Router,
-  	private movieService: MovieService) {
+  	private movieService: MovieService,
+    private authService: AuthService,) {
   }
 
   ngOnInit() {
-    if(!window['user']) {
+    if(!window['user'] && !this.authService.getUser()) {
       this.router.navigate(['/auth/login/']);
       return;
     }
