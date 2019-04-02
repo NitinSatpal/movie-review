@@ -40,7 +40,8 @@ async function rateMovie(id, data) {
   let rating = {
     movie: updatedMovie._id,
     user: data.userId,
-    rating: data.userRating
+    rating: data.userRating,
+    comment: data.userComment
   }
   let savedRating = await new Rating(rating).save();
   return updatedMovie;
