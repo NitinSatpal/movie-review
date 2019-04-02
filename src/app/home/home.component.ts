@@ -14,9 +14,14 @@ export class HomeComponent implements OnInit {
   movies: object[] = [];
   constructor(private http : HttpClient,
     private router: Router,
-  	private movieService: MovieService) { }
+  	private movieService: MovieService) {
+  }
 
   ngOnInit() {
+    if(!window['user']) {
+      this.router.navigate(['/auth/login/']);
+      return;
+    }
   	this.movieService.fetchMovies()
 	  .subscribe((data : any) => {
     	this.movies = data.movies;

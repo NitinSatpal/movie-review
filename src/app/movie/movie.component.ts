@@ -51,7 +51,7 @@ export class MovieComponent implements OnInit {
     if(!this.user) {
       this.getUser();
     } else {
-      this.getMovieRatinByUser(this.user['_id']);
+      this.getMovieRatingByUser(this.user['_id']);
     }
     this.getMovieDetails();
     this.getMovieComments();
@@ -62,7 +62,7 @@ export class MovieComponent implements OnInit {
     this.authService.getUser()
       .subscribe((data: any) => {
         this.user = data;        
-        this.getMovieRatinByUser(this.user['_id']);
+        this.getMovieRatingByUser(this.user['_id']);
       });
   }
 
@@ -83,7 +83,7 @@ export class MovieComponent implements OnInit {
     });
   }
 
-  getMovieRatinByUser(id): void {
+  getMovieRatingByUser(id): void {
     const userId = id;
     const movieId = this.route.snapshot.paramMap.get('id');
     this.reviewService.fetchUserRatingForMovie(userId, movieId)
@@ -106,7 +106,7 @@ export class MovieComponent implements OnInit {
     this.movieService.rateMovie(id, data)
       .subscribe((data : any) => {
         this.movieDetails = data.movieDetails;
-        this.getMovieRatinByUser(userId);
+        this.getMovieRatingByUser(userId);
       });
   }
 }

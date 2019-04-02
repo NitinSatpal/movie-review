@@ -59,9 +59,10 @@
       </span>
     </ng-template>
     <ngb-rating [(rate)]="userMovieRating.rating" [starTemplate]="ur" [readonly]="true"></ngb-rating>
-
-    <p>Your Comment:</p>
-    <span> {{ userMovieRating.comment }} </span>
+    <div *ngIf="userMovieRating && userMovieRating.comment">
+      <p>Your Comment:</p>
+      <span> {{ userMovieRating.comment }} </span>
+    </div>
   </div>
   <div class="col-sm-12 card">
 
